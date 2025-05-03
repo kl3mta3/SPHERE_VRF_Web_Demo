@@ -1,0 +1,111 @@
+﻿
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title class=" align-content-center"> SPHERE VRF Portal</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <div class="container" bg-dark>
+                <a href="index.html">SPHERE VRF Portal</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="request.html">Request</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="container">
+
+
+        <h1>"About SPHERE VRF"</h1>
+
+        <p>
+            The SPHERE VRF system provides decentralized, verifiable randomness without relying on a centralized authority.
+            It allows clients to request random numbers that can be publicly verified for fairness, making it ideal for games, lotteries, audits, and any system that demands true unpredictability and trustless verification.
+        </p>
+
+        <h2>How It Works</h2>
+
+        <p>
+            When a client requests randomness, the SPHERE network processes the request securely through its decentralized nodes.
+            Each step is cryptographically verifiable, ensuring no single party can manipulate the outcome. Here's the general flow:
+        </p>
+
+        <div style="text-align:center;  margin: 30px 0;">
+            <pre style="text-align:left; display: inline-block; padding: 20px; background: #f8f9fa; border: 1px solid #ccc; border-radius: 8px; color: #212529;">
+Client ➔ Request Random Number
+    ↓
+System Node ➔ Receives & Validates Request
+    ↓
+Master Node ➔ Distributes Workload
+    ↓
+Manager Nodes ➔ Assign Randomness Tasks to Workers
+    ↓
+Worker Nodes ➔ Independently Generate VRF Proofs
+    ↓
+Verifier Node ➔ Confirms Proof Authenticity
+    ↓
+Master Node ➔ Assembles Verified Results
+    ↓
+System Node ➔ Returns Final Random Number to Client
+    ↓
+Client ➔ Can Independently Verify the Randomness
+    </pre>
+        </div>
+
+        <h2>Key Features</h2>
+
+        <ul>
+            <li><strong>Decentralized Verification:</strong> No single node controls the outcome — randomness is verified across multiple nodes.</li>
+            <li><strong>Cryptographic Proofs:</strong> Each random number includes a verifiable proof that it was generated fairly and correctly.</li>
+            <li><strong>Transparent Responses:</strong> Clients can check the results independently — trust is optional, verification is built-in.</li>
+            <li><strong>Scalable Architecture:</strong> Requests are divided across managers and workers for high reliability even under heavy load.</li>
+        </ul>
+
+        <h2>What's Coming Next?</h2>
+
+        <p>Beyond simple randomness tests, the SPHERE VRF portal will soon feature a Playground section where users can interact with randomness-driven applications, like:</p>
+
+        <ul>
+            <li>Decentralized Slot Machines</li>
+            <li>Fair Play Blackjack</li>
+            <li>Other cryptographic mini-games and experiments</li>
+        </ul>
+
+        <p>All powered by **provably fair** decentralized randomness through SPHERE VRF.</p>
+
+        <p><strong>Welcome to the future of verifiable randomness!</strong></p>
+
+
+
+
+
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - SPHERE VRF - <a href="privacy.html">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
