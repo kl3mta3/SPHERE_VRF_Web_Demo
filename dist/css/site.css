@@ -8,6 +8,11 @@ html {
   }
 }
 
+
+
+
+
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -44,35 +49,4 @@ footer {
   min-height: 80px;
 }
 
-.vrf-flow-container {
-    display: flex;
-    justify-content: center;
-    margin: 40px 0;
-}
 
-.vrf-flow-box {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    max-width: 500px;
-    width: 100%;
-}
-
-.vrf-step {
-    font-family: monospace;
-    font-size: 16px;
-    color: #212529;
-    text-align: center;
-    padding: 8px 0;
-    border-left: 4px solid #0d6efd;
-    padding-left: 12px;
-    margin: 4px 0;
-}
-
-.vrf-arrow {
-    text-align: center;
-    font-size: 18px;
-    color: #0d6efd;
-    margin: 4px 0;
-}
