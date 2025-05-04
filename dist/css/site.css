@@ -17,6 +17,11 @@ html {
   min-height: 100%;
 }
 
+
 body {
-  margin-bottom: 60px;
+
+  background: url('https://png.pngtree.com/background/20210717/original/pngtree-blue-star-point-fantasy-universe-cloud-background-picture-image_1445521.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #ffffff;
 }
+
