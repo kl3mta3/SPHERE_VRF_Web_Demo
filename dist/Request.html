@@ -72,7 +72,7 @@
 
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                console.log("Form submitted!"); // ✅ Confirm script is working
+                console.log("Form submitted!"); 
 
                 const rangeMin = document.getElementById('rangeMin').value;
                 const rangeMax = document.getElementById('rangeMax').value;
@@ -110,6 +110,9 @@
                                 <strong>VRF Request Successful!</strong><br>
                                 <strong>Result:</strong> ${data.rangedRandomNumber}<br>
                                 <strong>Elapsed Time(ms):</strong> ${elapsed} ms<br><br>
+								<strong>Proof:</strong> ${data.proof}<br><br>
+								<strong>Input:</strong> ${data.hashedInput}<br><br>
+								<strong>VRFKey:</strong> <p>${data.creatorSignatureKey}</p> <br><br>
                                 <button id="toggleDetails" class="btn btn-primary btn-sm">View Details</button>
                                 <div id="details" style="display:none; margin-top: 10px;">
                                     <pre>${JSON.stringify(data, null, 2)}</pre>
@@ -117,7 +120,16 @@
                             </div>
                         `;
 
+						const verifyUrl = new URL('https://www.spherevrf.info/verify');
+							verifyUrl.searchParams.set('proof', data.proof);
+							verifyUrl.searchParams.set('input', data.hashedInput);
+							verifyUrl.searchParams.set('rangeMin', rangeMin);
+							verifyUrl.searchParams.set('rangeMax', rangeMax);
+							verifyUrl.searchParams.set('vrfKey', data.creatorSignatureKey);
 
+						resultDiv.innerHTML += `
+							<a href="${verifyUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-success mt-2">Verify Now</a>
+						`;
                            // Add button functionality
                         const toggleBtn = document.getElementById('toggleDetails');
                         const detailsDiv = document.getElementById('details');

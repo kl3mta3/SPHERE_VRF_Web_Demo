@@ -69,8 +69,8 @@
 	</div>
 
 	<div class="mb-3 mt-3">
-		<label for="signatureKey" class="h5 text-center text-secondary mt-4 mb-2">VRF Key</label>
-		<input type="text" class="form-control" id="signatureKey" placeholder="Enter VRF Key" required>
+		<label for="vrfKey" class="h5 text-center text-secondary mt-4 mb-2">VRF Key</label>
+		<input type="text" class="form-control" id="vrfKey" placeholder="Enter VRF Key" required>
 	</div>
 
 	<button type="submit" class="btn btn-primary w-100 mt-3">Verify Random Number</button>
@@ -82,102 +82,109 @@
 			
 	
 		</div>
-    
-
-
-        <script>
 		
-            const form = document.getElementById('vrfVerifyForm');
-            const resultDiv = document.getElementById('result');
+<script>
+	window.addEventListener('DOMContentLoaded', () => {
+		const urlParams = new URLSearchParams(window.location.search);
+		const proof = urlParams.get('proof');
+		const input = urlParams.get('input');
+		const rangeMin = urlParams.get('rangeMin');
+		const rangeMax = urlParams.get('rangeMax');
+		const vrfKey = urlParams.get('vrfKey');
 
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                console.log("Form submitted!"); // ✅ Confirm script is working
+		if (proof) document.getElementById('proof').value = proof;
+		if (input) document.getElementById('input').value = input;
+		if (rangeMin) document.getElementById('rangeMin').value = rangeMin;
+		if (rangeMax) document.getElementById('rangeMax').value = rangeMax;
+		if (vrfKey) document.getElementById('vrfKey').value = vrfKey;
+	});
+</script>
 
-                const proof = document.getElementById('proof').value;
-                const input = document.getElementById('input').value;
-				const rangeMin = document.getElementById('rangeMin').value;
-                const rangeMax = document.getElementById('rangeMax').value;
-                const signatureKey = document.getElementById('signatureKey').value;
+<script>
+	const form = document.getElementById('vrfVerifyForm');
+	const resultDiv = document.getElementById('result');
+
+	form.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		console.log("Form submitted!");
+
+		const proof = document.getElementById('proof').value;
+		const input = document.getElementById('input').value;
+		const rangeMin = document.getElementById('rangeMin').value;
+		const rangeMax = document.getElementById('rangeMax').value;
+		const signatureKey = document.getElementById('vrfKey').value;
+
+		const keyRegex = /^[A-Za-z0-9+\/]{43}=$/;
+		if (!keyRegex.test(signatureKey)) {
+			resultDiv.innerHTML = `
+				<div class="alert alert-danger">
+					Invalid VRF Key format. Please make sure you’re using the public key (not the signature).
+				</div>`;
+			return;
+		}
+
+		const requestData = {
+			Proof: proof,
+			Input: input,
+			RangeMin: parseInt(rangeMin),
+			RangeMax: parseInt(rangeMax),
+			SignatureKey: signatureKey
+		};
+
+		console.log("Sending verification to /verify with:", requestData);
+		const startTime = performance.now();
+
+		try {
+			const response = await fetch('https://api.spherevrf.info:51515/verify', {
+				method: 'POST',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(requestData)
+			});
+
+			const endTime = performance.now();
+			const elapsed = (endTime - startTime).toFixed(2);
+
+			if (response.ok) {
+				const data = await response.json();
+
+				resultDiv.innerHTML = `
+					<div class="alert alert-success">
+						<strong>VRF Verified Successfully!</strong><br>
+						<strong>Verified:</strong> ${data.isValid}<br>
+						<strong>Previous Result:</strong> ${data.rangedNumber}<br>
+						<strong>Elapsed Time(ms):</strong> ${elapsed} ms<br><br>
+						<button id="toggleDetails" class="btn btn-primary btn-sm">View Details</button>
+						<div id="details" style="display:none; margin-top: 10px;">
+							<pre>${JSON.stringify(data, null, 2)}</pre>
+						</div>
+					</div>`;
+
 				
-                const requestData = {
-                    Proof: proof,
-                    Input: input,
-					RangeMin: parseInt(rangeMin),
-                    RangeMax: parseInt(rangeMax),
-                    SignatureKey: signatureKey
-                };
-
-                console.log("Sending verification to /verify with:", requestData); // ✅ Confirm payload
-                const startTime = performance.now();
-                try 
-                {
-            
-                    const response = await fetch('https://api.spherevrf.info:51515/verify', {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(requestData)
-                    });
-
-
-                    const endTime = performance.now(); 
-                    const elapsed = (endTime - startTime).toFixed(2);
-
-                    console.log("Response:", response);
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        resultDiv.innerHTML = `
-                            <div class="alert alert-success">
-                                <strong>VRF Verified Successfully!</strong><br>
-                                <strong>Result:</strong> ${data.isValid}<br>
-                                <strong>Elapsed Time(ms):</strong> ${elapsed} ms<br><br>
-                                <button id="toggleDetails" class="btn btn-primary btn-sm">View Details</button>
-                                <div id="details" style="display:none; margin-top: 10px;">
-                                    <pre>${JSON.stringify(data, null, 2)}</pre>
-                                </div>
-                            </div>
-                        `;
-
-
-                           // Add button functionality
-                        const toggleBtn = document.getElementById('toggleDetails');
-                        const detailsDiv = document.getElementById('details');
-
-                        toggleBtn.addEventListener('click', () => {
-                            if (detailsDiv.style.display === "none") {
-                                detailsDiv.style.display = "block";
-                                toggleBtn.innerText = "Hide Details";
-                            } else {
-                                detailsDiv.style.display = "none";
-                                toggleBtn.innerText = "View Details";
-                            }
-                        });
-
-                    } 
-                    else 
-                    {
-                        resultDiv.innerHTML = `
-                            <div class="alert alert-danger">
-                                Error: ${response.status} ${response.statusText}
-                            </div>
-                        `;
-                    }
-                } 
-                catch (error) 
-                {
-                    console.error("Fetch failed:", error); 
-                    resultDiv.innerHTML = `
-                        <div class="alert alert-danger">
-                            Error sending request: ${error.message}
-                        </div>
-                    `;
-                }
-            });
-        </script>
+				const toggleBtn = document.getElementById('toggleDetails');
+				const detailsDiv = document.getElementById('details');
+				toggleBtn.addEventListener('click', () => {
+					const show = detailsDiv.style.display === "none";
+					detailsDiv.style.display = show ? "block" : "none";
+					toggleBtn.innerText = show ? "Hide Details" : "View Details";
+				});
+			} else {
+				resultDiv.innerHTML = `
+					<div class="alert alert-danger">
+						Error: ${response.status} ${response.statusText}
+					</div>`;
+			}
+		} catch (error) {
+			console.error("Fetch failed:", error);
+			resultDiv.innerHTML = `
+				<div class="alert alert-danger">
+					Error sending request: ${error.message}
+				</div>`;
+		}
+	});
+</script>
   		<p class="fs-5 mt-4 text-center ">
 			<em>Powered by the <strong>SPHERE Network</strong></em> — a decentralized system designed for scalable trust, cryptographic integrity, and real-world utility.
 		</p>
