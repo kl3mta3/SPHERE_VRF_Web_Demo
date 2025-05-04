@@ -34,7 +34,7 @@
     <div class="container">
 
 
-        <h1>"About SPHERE VRF"</h1>
+        <h1>About SPHERE VRF</h1>
 
         <p>
             The SPHERE VRF system provides decentralized, verifiable randomness without relying on a centralized authority.
@@ -48,27 +48,29 @@
             Each step is cryptographically verifiable, ensuring no single party can manipulate the outcome. Here's the general flow:
         </p>
 
-        <div style="text-align:center;  margin: 30px 0;">
-            <pre style="text-align:left; display: inline-block; padding: 20px; background: #f8f9fa; border: 1px solid #ccc; border-radius: 8px; color: #212529;">
-Client ➔ Request Random Number
-    ↓
-System Node ➔ Receives & Validates Request
-    ↓
-Master Node ➔ Distributes Workload
-    ↓
-Manager Nodes ➔ Assign Randomness Tasks to Workers
-    ↓
-Worker Nodes ➔ Independently Generate VRF Proofs
-    ↓
-Verifier Node ➔ Confirms Proof Authenticity
-    ↓
-Master Node ➔ Assembles Verified Results
-    ↓
-System Node ➔ Returns Final Random Number to Client
-    ↓
-Client ➔ Can Independently Verify the Randomness
-    </pre>
-        </div>
+   <div class="vrf-flow-container">
+    <div class="vrf-flow-box">
+        <div class="vrf-step">Client ➔ Request Random Number</div>
+        <div class="vrf-arrow">↓</div>
+        <div class="vrf-step">System Node ➔ Receives & Validates Request</div>
+        <div class="vrf-arrow">↓</div>
+        <div class="vrf-step">Master Node ➔ Distributes Workload</div>
+        <div class="vrf-arrow">↓</div>
+        <div class="vrf-step">Manager Nodes ➔ Assign Tasks to Workers</div>
+        <div class="vrf-arrow">↓</div>
+        <div class="vrf-step">Worker Nodes ➔ Generate VRF Proofs</div>
+        <div class="vrf-arrow">↓</div>
+        <div class="vrf-step">Verifier Node ➔ Confirms Proof Authenticity</div>
+        <div class="vrf-arrow">↓</div>
+        <div class="vrf-step">Master Node ➔ Assembles Verified Results</div>
+        <div class="vrf-arrow">↓</div>
+        <div class="vrf-step">System Node ➔ Returns Final Result</div>
+        <div class="vrf-arrow">↓</div>
+        <div class="vrf-step">Verifier ➔ Continuously Verifies Result</div>
+		<div class="vrf-arrow">↓</div>
+        <div class="vrf-step">(Optional) Client  ➔ Independently Verifies Result</div>
+    </div>
+</div>
 
         <h2>Key Features</h2>
 
@@ -101,11 +103,12 @@ Client ➔ Can Independently Verify the Randomness
 
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - SPHERE VRF - <a href="privacy.html">Privacy</a>
-        </div>
-    </footer>
+		<footer class="border-top footer text-muted bg-dark ">
+			<div class="container">
+				&copy; 2025 - SPHERE VRF - <a href="privacy.html">Privacy</a>
+
+			</div>
+		</footer>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
