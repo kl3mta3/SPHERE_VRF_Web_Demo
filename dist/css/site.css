@@ -67,7 +67,7 @@ body::before {
 
 body {
 
-  background: url('https://raw.githubusercontent.com/kl3mta3/SPHERE_VRF_Web_Demo/refs/heads/master/dist/img/SphereVRFWebDemoBG.png') no-repeat center center fixed;
+  background: url('https://www.spherevrf.info/img/SphereVRFWebDemoBG.png') no-repeat center center fixed;
   background-size: cover;
   color: #ffffff;
    display: flex;
